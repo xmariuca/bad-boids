@@ -1,0 +1,4 @@
+Refactoring smells:
+
+- raw numbers appear in the code
+commit: 
