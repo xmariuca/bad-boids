@@ -1,4 +1,58 @@
 Refactoring smells:
 
-- raw numbers appear in the code
+- raw numbers appear in the code 
+=> replace magic numbers with constants
 commit: 
+
+- fragments of repeated code appear
+=> replace the repeated code with functions
+commit:
+
+- code needs a comment to explan what it does
+=> change of a variable name
+commit:
+
+- an expression becomes too long
+=> separate the lines into local variables
+commit:
+
+- loop vairable is an integer from 1 to something
+=> replace loop with iterator
+commit:
+
+- someone else had done this before
+=> replace hand-written code with library code
+commit:
+
+- a function needs to work corresponding indices of several arrays
+=> replace set of arrays with array of structures
+commit:
+
+- you need to change your code file to explore different research scenarios
+=> replace constants with a configuration file
+commit:
+
+- a global variable is assigned and then used inside a called function
+=> replace global variables with function arguments
+commit:
+
+- two neighbouring loops have the same for statement
+=> merge neighbouring loops
+commit:
+
+- a function or subroutine no longer fits on a page in your editor 
+- a line of code is indented more than three levels 
+- a piece of code interacts with the surrounding code through just a few variables
+=> break a larger function into smaller units
+commit:
+
+- code difficult to locate
+- version control conflicts
+=> separate code concepts into files or modules
+commit:
+
+
+
+
+
+
