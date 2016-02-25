@@ -23,5 +23,7 @@ def animate(frame):
 
 anim = animation.FuncAnimation(figure, animate,frames=50, interval=50)
 
+# anim.save('boids_1.mp4')
+
 if __name__ == "__main__":
     plt.show()

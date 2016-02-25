@@ -29,21 +29,9 @@ class BoidsMaster:
         return (lower_limits[:,np.newaxis] + np.random.rand(2,self.boids_number) * width[:,np.newaxis])
 
     def fly_towards_center(self):
-        positionsX = self.positions[0,:]
-        positionsY = self.positions[1,:]
-        velocitiesX = self.velocities[0,:]
-        velocitiesY = self.velocities[1,:]
-
-        for i in range(self.boids_number):
-            for j in range(self.boids_number):
-                # for each boid i and each boid j
-                # update x position
-                velocitiesX[i] = velocitiesX[i] + (positionsX[j] - positionsX[i]) * self.strength2middle / self.boids_number
-                velocitiesY[i] = velocitiesY[i] + (positionsY[j] - positionsY[i]) * self.strength2middle / self.boids_number
-        self.positions[0,:] = positionsX
-        self.positions[1,:] = positionsY
-        self.velocities[0,:] = velocitiesX
-        self.velocities[1,:] = velocitiesY
+        center = np.mean(self.positions,1)
+        direction_to_center = self.positions - center[:, np.newaxis]
+        self.velocities = self.velocities - direction_to_center * self.strength2middle
 
     def fly_away_from_neighbours(self):
         positionsX = self.positions[0,:]

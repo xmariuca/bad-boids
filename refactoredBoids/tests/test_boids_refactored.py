@@ -80,7 +80,6 @@ def test_new_boids_fly_away_neighbours_regression():
         for after_value, before_value in zip(after, before):
             assert_almost_equal(after_value, before_value, delta=0.01)
 
-
 def test_new_boids_match_speed_regression():
     '''
     Regression test - Match speed with neighbours
