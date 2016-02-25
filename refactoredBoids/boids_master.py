@@ -1,0 +1,74 @@
+'''
+Main class for controlling the boids
+'''
+from matplotlib import pyplot as plt
+from matplotlib import animation
+import numpy as np
+import random
+
+class BoidsMaster:
+    def __init__(self, position_limits, velocity_limits, boids_number = 50, collision_alert = 100, formation_limit = 10000, strength2middle = 0.01, strength2formation = 0.125):
+        self.position_limits = position_limits
+        self.velocity_limits = velocity_limits
+        self.boids_number = boids_number
+        self.collision_alert = collision_alert
+        self.formation_limit = formation_limit
+        self.strength2middle = strength2middle
+        self.strength2formation = strength2formation
+        self.positions = self.__new_boids(self.position_limits)
+        self.velocities = self.__new_boids(self.velocity_limits)
+
+    def __new_boids(self, limits):
+        lower_limits = limits[:,0]
+        upper_limits = limits[:,1]
+        width = upper_limits - lower_limits
+        return (lower_limits[:,np.newaxis] + np.random.rand(2,self.boids_number) * width[:,np.newaxis])
+
+    def fly_towards_center(self):
+        positionsX = self.positions[0,:]
+        positionsY = self.positions[1,:]
+        velocitiesX = self.velocities[0,:]
+        velocitiesY = self.velocities[1,:]
+
+        for i in range(self.boids_number):
+            for j in range(self.boids_number):
+                # for each boid i and each boid j
+                # update x position
+                velocitiesX[i] = velocitiesX[i] + (positionsX[j] - positionsX[i]) * self.strength2middle / self.boids_number
+                velocitiesY[i] = velocitiesY[i] + (positionsY[j] - positionsY[i]) * self.strength2middle / self.boids_number
+
+    def fly_away_from_neighbours(self):
+        positionsX = self.positions[0,:]
+        positionsY = self.positions[1,:]
+        velocitiesX = self.velocities[0,:]
+        velocitiesY = self.velocities[1,:]
+
+        for i in range(self.boids_number):
+            for j in range(self.boids_number):
+                # is the distance (ssd) is lower than a critical value
+                if (positionsX[j] - positionsX[i]) ** 2 + (positionsY[j] - positionsY[i]) ** 2 < self.collision_alert:
+                    velocitiesX[i] = velocitiesX[i] + (positionsX[i] - positionsX[j])
+                    velocitiesY[i] = velocitiesY[i] + (positionsY[i] - positionsY[j])
+
+    def match_speed_w_neighbours(self):
+        positionsX = self.positions[0,:]
+        positionsY = self.positions[1,:]
+        velocitiesX = self.velocities[0,:]
+        velocitiesY = self.velocities[1,:]
+
+        for i in range(self.boids_number):
+            for j in range(self.boids_number):
+                # match the speed only with the ones that are closer than 10000
+                # 0.125 is the strength of the velocity
+                if (positionsX[j] - positionsX[i]) ** 2 + (positionsY[j] - positionsY[i]) ** 2 < self.formation_limit:
+                    velocitiesX[i] = velocitiesX[i] + (velocitiesX[j] - velocitiesX[i]) * self.strength2formation / self.boids_number
+                    velocitiesY[i] = velocitiesY[i] + (velocitiesY[j] - velocitiesY[i]) * self.strength2formation / self.boids_number
+
+    def update_positions(self):
+        self.positions += self.velocities
+
+    def update_boids(self):
+        self.fly_towards_center()
+        self.fly_away_from_neighbours()
+        self.match_speed_w_neighbours()
+        self.update_positions()
