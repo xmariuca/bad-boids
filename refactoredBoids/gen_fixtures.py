@@ -3,6 +3,25 @@ from boids_master import BoidsMaster
 from copy import deepcopy
 import numpy as np
 
+def create_fixture_unit():
+    # *******************************************************
+    # Write fixture file for the BoidsMaster.fly_towards_center()
+    fixt_boids = BoidsMaster()
+    before_positions = deepcopy(fixt_boids.positions.tolist())
+    before_velocities = deepcopy(fixt_boids.velocities.tolist())
+    fixt_boids.update_boids()
+
+    after_positions = fixt_boids.positions.tolist()
+    after_velocities = fixt_boids.velocities.tolist()
+
+    before = (before_positions, before_velocities)
+    after = (after_positions, after_velocities)
+
+    fixture = {"before" : before, "after" : after}
+    fixture_file = open("tests/fixtures/fixture_general.yml",'w')
+    fixture_file.write( yaml.dump(fixture) )
+    fixture_file.close()
+
 def create_fixture1():
     # *******************************************************
     # Write fixture file for the BoidsMaster.fly_towards_center()
@@ -67,3 +86,4 @@ def create_fixture3():
 create_fixture1()
 create_fixture2()
 create_fixture3()
+create_fixture_unit()

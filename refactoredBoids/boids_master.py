@@ -31,11 +31,10 @@ class BoidsMaster:
     def fly_towards_center(self):
         center = np.mean(self.positions,1)
         direction_to_center = self.positions - center[:, np.newaxis]
-        self.velocities = self.velocities - direction_to_center * self.strength2middle
+        self.velocities -= direction_to_center * self.strength2middle
 
     def fly_away_from_neighbours(self):
         distance_mat = self.positions[:,np.newaxis,:] - self.positions[:,:,np.newaxis]
-
         squared_distance_mat = distance_mat * distance_mat
         square_distances_sum = np.sum(squared_distance_mat, 0)
         far_away = square_distances_sum > self.collision_alert
@@ -43,25 +42,19 @@ class BoidsMaster:
         neighbours_if_close = np.copy(distance_mat)
         neighbours_if_close[0,:,:][far_away] = 0
         neighbours_if_close[1,:,:][far_away] = 0
-        self.velocities = self.velocities + np.sum(neighbours_if_close,1)
+        self.velocities += np.sum(neighbours_if_close,1)
 
     def match_speed_w_neighbours(self):
-        positionsX = self.positions[0,:]
-        positionsY = self.positions[1,:]
-        velocitiesX = self.velocities[0,:]
-        velocitiesY = self.velocities[1,:]
+        distance_mat = self.positions[:,np.newaxis,:] - self.positions[:,:,np.newaxis]
+        squared_distance_mat = distance_mat * distance_mat
+        square_distances_sum = np.sum(squared_distance_mat, 0)
 
-        for i in range(self.boids_number):
-            for j in range(self.boids_number):
-                # match the speed only with the ones that are closer than 10000
-                # 0.125 is the strength of the velocity
-                if (positionsX[j] - positionsX[i]) ** 2 + (positionsY[j] - positionsY[i]) ** 2 < self.formation_limit:
-                    velocitiesX[i] = velocitiesX[i] + (velocitiesX[j] - velocitiesX[i]) * self.strength2formation / self.boids_number
-                    velocitiesY[i] = velocitiesY[i] + (velocitiesY[j] - velocitiesY[i]) * self.strength2formation / self.boids_number
-        self.positions[0,:] = positionsX
-        self.positions[1,:] = positionsY
-        self.velocities[0,:] = velocitiesX
-        self.velocities[1,:] = velocitiesY
+        velocity_differences = self.velocities[:,np.newaxis,:] - self.velocities[:,:,np.newaxis]
+        very_far = square_distances_sum > self.formation_limit
+        neighbours_if_close = np.copy(velocity_differences)
+        neighbours_if_close[0,:,:][very_far] = 0
+        neighbours_if_close[1,:,:][very_far] = 0
+        self.velocities -= np.mean(neighbours_if_close, 1) * self.strength2formation
 
     def update_positions(self):
         self.positions += self.velocities

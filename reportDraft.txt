@@ -1,6 +1,6 @@
 Refactoring smells:
 
-- raw numbers appear in the code 
+- raw numbers appear in the code
 => replace magic numbers with constants
 commit: 068564f
 
@@ -40,8 +40,8 @@ commit:
 => merge neighbouring loops
 commit:
 
-- a function or subroutine no longer fits on a page in your editor 
-- a line of code is indented more than three levels 
+- a function or subroutine no longer fits on a page in your editor
+- a line of code is indented more than three levels
 - a piece of code interacts with the surrounding code through just a few variables
 => break a larger function into smaller units
 commit:
@@ -52,7 +52,4 @@ commit:
 commit:
 
 
-
-
-
-
+- after I refactored all the individual methods and tested them with fixtures - the initial fixture doesn't work anymore => create a new one
