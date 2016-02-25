@@ -34,21 +34,16 @@ class BoidsMaster:
         self.velocities = self.velocities - direction_to_center * self.strength2middle
 
     def fly_away_from_neighbours(self):
-        positionsX = self.positions[0,:]
-        positionsY = self.positions[1,:]
-        velocitiesX = self.velocities[0,:]
-        velocitiesY = self.velocities[1,:]
+        distance_mat = self.positions[:,np.newaxis,:] - self.positions[:,:,np.newaxis]
 
-        for i in range(self.boids_number):
-            for j in range(self.boids_number):
-                # is the distance (ssd) is lower than a critical value
-                if (positionsX[j] - positionsX[i]) ** 2 + (positionsY[j] - positionsY[i]) ** 2 < self.collision_alert:
-                    velocitiesX[i] = velocitiesX[i] + (positionsX[i] - positionsX[j])
-                    velocitiesY[i] = velocitiesY[i] + (positionsY[i] - positionsY[j])
-        self.positions[0,:] = positionsX
-        self.positions[1,:] = positionsY
-        self.velocities[0,:] = velocitiesX
-        self.velocities[1,:] = velocitiesY
+        squared_distance_mat = distance_mat * distance_mat
+        square_distances_sum = np.sum(squared_distance_mat, 0)
+        far_away = square_distances_sum > self.collision_alert
+
+        neighbours_if_close = np.copy(distance_mat)
+        neighbours_if_close[0,:,:][far_away] = 0
+        neighbours_if_close[1,:,:][far_away] = 0
+        self.velocities = self.velocities + np.sum(neighbours_if_close,1)
 
     def match_speed_w_neighbours(self):
         positionsX = self.positions[0,:]
