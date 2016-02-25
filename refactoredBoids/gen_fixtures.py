@@ -3,6 +3,7 @@ from boids_master import BoidsMaster
 from copy import deepcopy
 import numpy as np
 
+
 def create_fixture_unit():
     # *******************************************************
     # Write fixture file for the BoidsMaster.fly_towards_center()
@@ -17,10 +18,11 @@ def create_fixture_unit():
     before = (before_positions, before_velocities)
     after = (after_positions, after_velocities)
 
-    fixture = {"before" : before, "after" : after}
-    fixture_file = open("tests/fixtures/fixture_general.yml",'w')
-    fixture_file.write( yaml.dump(fixture) )
+    fixture = {"before": before, "after": after}
+    fixture_file = open("tests/fixtures/fixture_general.yml", 'w')
+    fixture_file.write(yaml.dump(fixture))
     fixture_file.close()
+
 
 def create_fixture1():
     # *******************************************************
@@ -37,10 +39,11 @@ def create_fixture1():
     beforeM1 = (before_positions, before_velocities)
     afterM1 = (after_positions, after_velocities)
 
-    fixture = {"before" : beforeM1, "after" : afterM1}
-    fixture_file = open("tests/fixtures/fixture_fly2center.yml",'w')
-    fixture_file.write( yaml.dump(fixture) )
+    fixture = {"before": beforeM1, "after": afterM1}
+    fixture_file = open("tests/fixtures/fixture_fly2center.yml", 'w')
+    fixture_file.write(yaml.dump(fixture))
     fixture_file.close()
+
 
 def create_fixture2():
     # *******************************************************
@@ -57,10 +60,11 @@ def create_fixture2():
     beforeM2 = (before_positions, before_velocities)
     afterM2 = (after_positions, after_velocities)
 
-    fixture = {"before" : beforeM2, "after" : afterM2}
-    fixture_file = open("tests/fixtures/fixture_fly_away_neighbours.yml",'w')
-    fixture_file.write( yaml.dump(fixture) )
+    fixture = {"before": beforeM2, "after": afterM2}
+    fixture_file = open("tests/fixtures/fixture_fly_away_neighbours.yml", 'w')
+    fixture_file.write(yaml.dump(fixture))
     fixture_file.close()
+
 
 def create_fixture3():
     # *******************************************************
@@ -77,12 +81,12 @@ def create_fixture3():
     beforeM3 = (before_positions, before_velocities)
     afterM3 = (after_positions, after_velocities)
 
-    fixture = {"before" : beforeM3, "after" : afterM3}
-    fixture_file = open("tests/fixtures/fixture_match_speed.yml",'w')
-    fixture_file.write( yaml.dump(fixture) )
+    fixture = {"before": beforeM3, "after": afterM3}
+    fixture_file = open("tests/fixtures/fixture_match_speed.yml", 'w')
+    fixture_file.write(yaml.dump(fixture))
     fixture_file.close()
-# *******************************************************
 
+# *******************************************************
 create_fixture1()
 create_fixture2()
 create_fixture3()
