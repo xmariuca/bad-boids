@@ -40,6 +40,10 @@ class BoidsMaster:
                 # update x position
                 velocitiesX[i] = velocitiesX[i] + (positionsX[j] - positionsX[i]) * self.strength2middle / self.boids_number
                 velocitiesY[i] = velocitiesY[i] + (positionsY[j] - positionsY[i]) * self.strength2middle / self.boids_number
+        self.positions[0,:] = positionsX
+        self.positions[1,:] = positionsY
+        self.velocities[0,:] = velocitiesX
+        self.velocities[1,:] = velocitiesY
 
     def fly_away_from_neighbours(self):
         positionsX = self.positions[0,:]
@@ -53,6 +57,10 @@ class BoidsMaster:
                 if (positionsX[j] - positionsX[i]) ** 2 + (positionsY[j] - positionsY[i]) ** 2 < self.collision_alert:
                     velocitiesX[i] = velocitiesX[i] + (positionsX[i] - positionsX[j])
                     velocitiesY[i] = velocitiesY[i] + (positionsY[i] - positionsY[j])
+        self.positions[0,:] = positionsX
+        self.positions[1,:] = positionsY
+        self.velocities[0,:] = velocitiesX
+        self.velocities[1,:] = velocitiesY
 
     def match_speed_w_neighbours(self):
         positionsX = self.positions[0,:]
@@ -67,6 +75,10 @@ class BoidsMaster:
                 if (positionsX[j] - positionsX[i]) ** 2 + (positionsY[j] - positionsY[i]) ** 2 < self.formation_limit:
                     velocitiesX[i] = velocitiesX[i] + (velocitiesX[j] - velocitiesX[i]) * self.strength2formation / self.boids_number
                     velocitiesY[i] = velocitiesY[i] + (velocitiesY[j] - velocitiesY[i]) * self.strength2formation / self.boids_number
+        self.positions[0,:] = positionsX
+        self.positions[1,:] = positionsY
+        self.velocities[0,:] = velocitiesX
+        self.velocities[1,:] = velocitiesY
 
     def update_positions(self):
         self.positions += self.velocities
