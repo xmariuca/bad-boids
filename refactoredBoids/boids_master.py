@@ -7,7 +7,7 @@ import numpy as np
 import random
 
 class BoidsMaster:
-    def __init__(self, position_limits, velocity_limits, boids_number = 50, collision_alert = 100, formation_limit = 10000, strength2middle = 0.01, strength2formation = 0.125):
+    def __init__(self, position_limits = np.array([[-450.0, 50.0], [300.0, 600.0]]), velocity_limits = np.array([[0, 10.0], [-20.0, 20.0]]), boids_number = 50, collision_alert = 100, formation_limit = 10000, strength2middle = 0.01, strength2formation = 0.125):
         self.position_limits = position_limits
         self.velocity_limits = velocity_limits
         self.boids_number = boids_number
@@ -17,6 +17,10 @@ class BoidsMaster:
         self.strength2formation = strength2formation
         self.positions = self.__new_boids(self.position_limits)
         self.velocities = self.__new_boids(self.velocity_limits)
+
+    def set_boids(self, new_positions, new_velocities):
+        self.positions = new_positions
+        self.velocities = new_velocities
 
     def __new_boids(self, limits):
         lower_limits = limits[:,0]

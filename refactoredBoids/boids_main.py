@@ -7,6 +7,8 @@ position_limits = np.array([[-450.0, 50.0], [300.0, 600.0]])
 velocities_limits = np.array([[0, 10.0], [-20.0, 20.0]])
 boids_number = 50;
 master_of_boids = BoidsMaster(position_limits,velocities_limits, boids_number)
+# master_of_boids = BoidsMaster()
+
 
 xAxisLimits = np.array([-500, 1500])
 yAxisLimits = np.array([-500, 1500])
