@@ -1,13 +1,12 @@
 '''
 Main class for controlling the boids
 '''
+import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import animation
-import numpy as np
-import random
 
 
-class BoidsMaster:
+class BoidsMaster(object):
     def __init__(self,
                  position_limits=np.array([[-450.0, 50.0], [300.0, 600.0]]),
                  velocity_limits=np.array([[0, 10.0], [-20.0, 20.0]]),
@@ -40,6 +39,7 @@ class BoidsMaster:
 
     def fly_towards_center(self):
         center = np.mean(self.positions, 1)
+        # print(center)
         direction_to_center = self.positions - center[:, np.newaxis]
         self.velocities -= direction_to_center * self.strength2middle
 
@@ -78,3 +78,18 @@ class BoidsMaster:
         self.fly_away_from_neighbours()
         self.match_speed_w_neighbours()
         self.update_positions()
+
+    def animate_iteration(self, frame):
+        self.update_boids()
+        self.scatter.set_offsets(zip(self.positions[0, :],
+                                self.positions[1, :]))
+
+    def start_animation(self):
+        xAxisLimits = np.array([-500, 1500])
+        yAxisLimits = np.array([-500, 1500])
+        figure = plt.figure()
+        axes = plt.axes(xlim=xAxisLimits, ylim=yAxisLimits)
+        self.scatter = axes.scatter(self.positions[0, :],
+                               self.positions[1, :])
+        anim = animation.FuncAnimation(figure, self.animate_iteration, frames=50, interval=50)
+        plt.show()
