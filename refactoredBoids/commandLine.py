@@ -9,7 +9,7 @@ def parseArgs():
 
     :Example:
 
-    >>> boids --number_boids 50 --collision_alert 100 --formation_limit 10000 --strength_to_middle 0.01 --strength_to_formation 0.125
+    >>> simulate_boids --number_boids 50 --collision_alert 100 --formation_limit 10000 --strength_to_middle 0.01 --strength_to_formation 0.125
     '''
     prs = ArgumentParser(description =
                          "Boids Simulator - generates a flock of birds " +
