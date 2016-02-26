@@ -13,7 +13,6 @@ setup(
         'argparse',
         'matplotlib',
         'numpy',
-        'yaml',
         'nose'
         ]
 )
