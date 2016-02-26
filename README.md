@@ -7,9 +7,11 @@
 Libraries used:
 * argparse
 * numpy
+* matplotlib
+* yaml
 
 ### Version
-0.1
+1.0.0
 
 ### License
 MIT
