@@ -9,7 +9,22 @@ def main_animate_boids(number_boids = 50,
                          formation_limit = 10000,
                          strength2middle = 0.01,
                          strength2formation = 0.125):
-# make sure the parameters are valid
+    '''
+    This function initializes a BoidsMaster object that controlls the behaviour of the boids. The input parameters influence the simulation.
+
+    :param number_boids: The number of boids to include in the simulation
+    :type number_boids: int
+    :param collision_alert: Sets which boids are considered neighbours in order to avoid collisions with them
+    :type collision_alert: int
+    :param formation_limit: Sets which boids are supposed to fly in a formation with matching speed
+    :type formation_limit: int
+    :param strength2middle: Sets the strength with which the boids fly towards the middle of the flock
+    :type strength2middle: float
+    :param strength2formation: Sets the strength of the flying in the same formation
+    :type strength2formation: float
+
+    :returns: An animation of the animated boid simulation and an .mp4 video with the recording.
+    '''
     if not isinstance(number_boids, int):
         raise ValueError("The number of boids: " +
                          str(number_boids) + " is not an integer")

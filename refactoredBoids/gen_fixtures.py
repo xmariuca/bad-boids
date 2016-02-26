@@ -5,6 +5,9 @@ import numpy as np
 
 
 def create_fixture_unit():
+    '''
+    Creates fixture file for a regression test for the whole clss as an unit.
+    '''
     # *******************************************************
     # Write fixture file for the BoidsMaster.fly_towards_center()
     fixt_boids = BoidsMaster()
@@ -25,6 +28,9 @@ def create_fixture_unit():
 
 
 def create_fixture1():
+    '''
+    Creates fixture file for testing the flight towards the middle of the flock.
+    '''
     # *******************************************************
     # Write fixture file for the BoidsMaster.fly_towards_center()
     fixt_boids = BoidsMaster()
@@ -46,6 +52,9 @@ def create_fixture1():
 
 
 def create_fixture2():
+    '''
+    Creates fixture file for testing the flight away from newighbouring boids.
+    '''
     # *******************************************************
     # Write fixture file for the BoidsMaster.fly_away_from_neighbours()
     fixt_boids = BoidsMaster()
@@ -67,6 +76,9 @@ def create_fixture2():
 
 
 def create_fixture3():
+    '''
+    Creates fixture file for testing the flight in formation.
+    '''
     # *******************************************************
     # Write fixture file for the BoidsMaster.match_speed_w_neighbours()
     fixt_boids = BoidsMaster()
