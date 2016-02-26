@@ -79,10 +79,10 @@ class BoidsMaster(object):
         self.match_speed_w_neighbours()
         self.update_positions()
 
-    def animate_iteration(self, frame):
+    def __animate_iteration(self, frame):
         self.update_boids()
         self.scatter.set_offsets(zip(self.positions[0, :],
-                                self.positions[1, :]))
+                                     self.positions[1, :]))
 
     def start_animation(self):
         xAxisLimits = np.array([-500, 1500])
@@ -90,6 +90,6 @@ class BoidsMaster(object):
         figure = plt.figure()
         axes = plt.axes(xlim=xAxisLimits, ylim=yAxisLimits)
         self.scatter = axes.scatter(self.positions[0, :],
-                               self.positions[1, :])
-        anim = animation.FuncAnimation(figure, self.animate_iteration, frames=50, interval=50)
+                                    self.positions[1, :])
+        anim = animation.FuncAnimation(figure, self.__animate_iteration, frames=50, interval=50)
         plt.show()
